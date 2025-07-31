@@ -1,4 +1,4 @@
-﻿namespace Specialist_Lab1_2;
+﻿namespace Specialist_Lab_1_2;
 
 using LabsLib.Threads;
 
