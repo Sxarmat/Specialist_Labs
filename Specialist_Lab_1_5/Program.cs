@@ -3,11 +3,12 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using LabsLib.BinrayBalancedTree;
+
 internal class Program
 {
     static async Task Main(string[] args)
     {
-        int treeLevel = 25;
+        int treeLevel = 24;
         Console.WriteLine($"Starting tree creation with depth {treeLevel}...");
         Tree tree = new(25);
         Console.WriteLine($"Tree created with total weight: {tree.Total}");
