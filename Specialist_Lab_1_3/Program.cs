@@ -1,6 +1,6 @@
-﻿namespace Specialist_Lab_1_3;
+﻿using LabsLib.Threads;
 
-using LabsLib.Threads;
+namespace Specialist_Lab_1_3;
 
 public class Program
 {

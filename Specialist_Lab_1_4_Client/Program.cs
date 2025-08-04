@@ -1,7 +1,7 @@
-﻿namespace Specialist_Lab_1_4_Client;
-
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Text;
+
+namespace Specialist_Lab_1_4_Client;
 
 public class Program
 {

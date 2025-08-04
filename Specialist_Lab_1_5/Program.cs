@@ -1,8 +1,7 @@
-﻿namespace Specialist_Lab_1_5;
-
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using LabsLib.BinrayBalancedTree;
+
+namespace Specialist_Lab_1_5;
 
 internal class Program
 {
@@ -21,7 +20,7 @@ internal class Program
         Console.WriteLine($"Single weight: {weightTree} Sync Time {timer.ElapsedMilliseconds}");
 
         timer.Reset();
-        
+
         timer.Start();
         weightTree = await Tree.WeightTreeAsync(tree.RootNode, Environment.ProcessorCount);
         timer.Stop();

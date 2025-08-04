@@ -1,8 +1,8 @@
-﻿namespace Specialist_Lab_1_4_Server;
-
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 using System.Text;
+
+namespace Specialist_Lab_1_4_Server;
 
 public class Program
 {
