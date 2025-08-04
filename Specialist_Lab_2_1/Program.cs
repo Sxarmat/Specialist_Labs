@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Specialist_Lab_2_1.Context;
 using Specialist_Lab_2_1.Models;
 
