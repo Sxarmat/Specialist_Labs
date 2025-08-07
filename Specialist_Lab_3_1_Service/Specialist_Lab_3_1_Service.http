@@ -1,0 +1,6 @@
+@Specialist_Lab_3_1_Service_HostAddress = http://localhost:5186
+
+GET {{Specialist_Lab_3_1_Service_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

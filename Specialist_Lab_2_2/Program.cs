@@ -16,6 +16,8 @@ internal class Program
     {
         using (AppDbContext db = new())
         {
+            // db.Database.EnsureDeleted();
+            // db.Database.EnsureCreated();
             List<Teacher> teachers = db.Teachers.Include(t => t.Courses).ThenInclude(c => c.Students).ToList();
             teachers.ForEach(teacher =>
             {
