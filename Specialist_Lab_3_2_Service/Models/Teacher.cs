@@ -1,4 +1,4 @@
-namespace Specialist_Lab_3_1_Service.Models;
+namespace Specialist_Lab_3_2_Service.Models;
 
 public class Teacher
 {

@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option csharp_namespace = "Specialist_Lab_3_2_Client";
+
+package Specialist_Lab_3_2;
+
+import "google/protobuf/empty.proto";
+
+
+//Методы сервиса
+service CourseService {
+  rpc IndexCourse(google.protobuf.Empty) returns (ListCourseReply);
+  rpc GetCourse(GetCourseRequest) returns (CourseReply);
+  rpc CreateCourse(CreateCourseRequest) returns (CourseReply);
+  rpc UpdateCourse(UpdateCourseRequest) returns (CourseReply);
+  rpc DeleteCourse(DeleteCourseRequest) returns (CourseReply);
+}
+
+//Параметры методов
+message GetCourseRequest {
+  int32 id = 1;
+}
+
+message CreateCourseRequest {
+  string title = 1;
+  int32 duration = 2;
+  string decription = 3;
+}
+
+message UpdateCourseRequest {
+  int32 id = 1;
+  string title = 2;
+  int32 duration = 3;
+  string description = 4;
+}
+
+message DeleteCourseRequest {
+  int32 id = 1;
+}
+
+
+//Ответы
+message ListCourseReply {
+  repeated CourseReply Courses = 1;
+}
+
+message CourseReply {
+  int32 id = 1;
+  string title = 2;
+  int32 duration = 3;
+  string decription = 4;
+}
