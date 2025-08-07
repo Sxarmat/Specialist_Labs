@@ -20,17 +20,34 @@ public class CourseController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Course>>> Index()
+    public async Task<ActionResult> Index()
     {
-        return Ok(await db.Courses.Include(c => c.Teachers).Include(c => c.Students).ToListAsync());
+        return Ok(await db.Courses
+            .Select(course => new
+            {
+                course.Id,
+                course.Title,
+                course.Duration,
+                course.Description,
+                course.Teachers,
+                course.Students
+            })
+            .ToListAsync());
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult> Get(int id)
     {
-        Course? course = await db.Courses
-            .Include(c => c.Teachers)
-            .Include(c => c.Students)
+        var course = await db.Courses
+            .Select(course => new
+            {
+                course.Id,
+                course.Title,
+                course.Duration,
+                course.Description,
+                course.Teachers,
+                course.Students
+            })
             .FirstOrDefaultAsync(c => c.Id == id);
         return course is null ? NotFound($"Unable to find course with id {id}") : Ok(course);
     }

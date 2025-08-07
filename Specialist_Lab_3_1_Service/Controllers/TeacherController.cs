@@ -20,14 +20,26 @@ public class TeacherController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> Index()
     {
-        return Ok(await db.Teachers.Include(teacher => teacher.Courses).ToListAsync());
+        return Ok(await db.Teachers
+            .Select(teacher => new
+            {
+                teacher.Id,
+                teacher.Name,
+                teacher.Courses
+            })
+            .ToListAsync());
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult> Get(int id)
     {
-        Teacher? teacher = await db.Teachers
-            .Include(teacher => teacher.Courses)
+        var teacher = await db.Teachers
+            .Select(teacher => new
+            {
+                teacher.Id,
+                teacher.Name,
+                teacher.Courses
+            })
             .FirstOrDefaultAsync(teacher => teacher.Id == id);
         return teacher is null ? NotFound($"Unable to find teacher with id {id}") : Ok(teacher);
     }
