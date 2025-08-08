@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Specialist_Lab_3_1_Service.Context;
-using Specialist_Lab_3_1_Service.Controllers.ControllersParams;
 using Specialist_Lab_3_1_Service.Models;
 
 namespace Specialist_Lab_3_1_Service.Controllers;
@@ -12,10 +11,7 @@ public class StudentController : ControllerBase
 {
     private readonly AppDbContext db;
 
-    public StudentController(AppDbContext db)
-    {
-        this.db = db;
-    }
+    public StudentController(AppDbContext db) => this.db = db;
 
     [HttpGet]
     public async Task<ActionResult> Index()
@@ -25,13 +21,6 @@ public class StudentController : ControllerBase
             {
                 student.Id,
                 student.Name,
-                Courses = student.Courses.Select(course => new
-                {
-                    course.Id,
-                    course.Title,
-                    course.Duration,
-                    course.Description
-                })
             })
             .ToListAsync());
     }
@@ -43,54 +32,30 @@ public class StudentController : ControllerBase
             .Select(student => new
             {
                 student.Id,
-                student.Name,
-                Courses = student.Courses.Select(course => new
-                {
-                    course.Id,
-                    course.Title,
-                    course.Duration,
-                    course.Description
-                })
+                student.Name
             })
             .FirstOrDefaultAsync(student => student.Id == id);
         return student is null ? NotFound($"Unable to find student with id {id}") : Ok(student);
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(StudentCreateParams studentData)
+    public async Task<ActionResult> Create([FromBody] string name)
     {
         Student student = new()
         {
-            Name = studentData.Name
+            Name = name
         };
-
-        if (studentData.CoursesId is not null)
-        {
-            student.Courses = await db.Courses
-                .Where(course => studentData.CoursesId.Contains(course.Id))
-                .ToListAsync();
-        }
-
         db.Add(student);
         await db.SaveChangesAsync();
         return CreatedAtAction("Get", new { id = student.Id }, student);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> Update(int id, StudentUpdateParams studentData)
+    public async Task<ActionResult> Update(int id, [FromBody] string name)
     {
         Student? student = await db.Students.FindAsync(id);
         if (student is null) return NotFound($"Unable to find student with id {id}");
-
-        student.Name = studentData.Name ?? student.Name;
-
-        if (studentData.CoursesId is not null)
-        {
-            List<Course> courses = await db.Courses.Where(cource => studentData.CoursesId.Contains(cource.Id)).ToListAsync();
-            await db.Entry(student).Collection(student => student.Courses).LoadAsync();
-            student.Courses = courses;
-        }
-
+        student.Name = name ?? student.Name;
         try
         {
             await db.SaveChangesAsync();
@@ -102,7 +67,7 @@ public class StudentController : ControllerBase
         }
     }
 
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
         Student? student = await db.Students.FindAsync(id);

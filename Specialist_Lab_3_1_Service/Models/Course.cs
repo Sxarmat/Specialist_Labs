@@ -6,7 +6,6 @@ public class Course
     public required string Title { get; set; }
     public required int Duration { get; set; }
     public string? Description { get; set; }
-
     public List<Teacher> Teachers { get; set; } = [];
     public List<Student> Students { get; set; } = [];
 }

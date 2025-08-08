@@ -12,16 +12,6 @@ internal class Program
         foreach (var cource in courses)
         {
             Console.WriteLine($"Course {cource.Id} - {cource.Title} - {cource.Description} - {cource.Duration}");
-            Console.WriteLine($"\tTeachers");
-            foreach (var teacher in cource.Teachers)
-            {
-                Console.WriteLine($"\t- {teacher.Id} - {teacher.Name}");
-            }
-            Console.WriteLine($"\tStudents");
-            foreach (var student in cource.Students)
-            {
-                Console.WriteLine($"\t- {student.Id} - {student.Name}");
-            }
         }       
     }
 }
