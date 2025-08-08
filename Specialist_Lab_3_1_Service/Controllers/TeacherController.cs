@@ -25,7 +25,13 @@ public class TeacherController : ControllerBase
             {
                 teacher.Id,
                 teacher.Name,
-                teacher.Courses
+                Courses = teacher.Courses.Select(course => new
+                {
+                    course.Id,
+                    course.Title,
+                    course.Duration,
+                    course.Description
+                })
             })
             .ToListAsync());
     }
@@ -38,7 +44,13 @@ public class TeacherController : ControllerBase
             {
                 teacher.Id,
                 teacher.Name,
-                teacher.Courses
+                Courses = teacher.Courses.Select(course => new
+                {
+                    course.Id,
+                    course.Title,
+                    course.Duration,
+                    course.Description
+                })
             })
             .FirstOrDefaultAsync(teacher => teacher.Id == id);
         return teacher is null ? NotFound($"Unable to find teacher with id {id}") : Ok(teacher);

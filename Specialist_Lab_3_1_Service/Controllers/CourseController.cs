@@ -29,10 +29,10 @@ public class CourseController : ControllerBase
                 course.Title,
                 course.Duration,
                 course.Description,
-                course.Teachers,
-                course.Students
-            })
-            .ToListAsync());
+                Teacher = course.Teachers.Select(teacher => new { teacher.Id, teacher.Name }).ToList(),
+                Students = course.Students.Select(student => new { student.Id, student.Name }).ToList()
+            }).ToListAsync()
+        );
     }
 
     [HttpGet("{id}")]
@@ -45,8 +45,8 @@ public class CourseController : ControllerBase
                 course.Title,
                 course.Duration,
                 course.Description,
-                course.Teachers,
-                course.Students
+                Teacher = course.Teachers.Select(teacher => new { teacher.Id, teacher.Name }).ToList(),
+                Students = course.Students.Select(student => new { student.Id, student.Name }).ToList()
             })
             .FirstOrDefaultAsync(c => c.Id == id);
         return course is null ? NotFound($"Unable to find course with id {id}") : Ok(course);
